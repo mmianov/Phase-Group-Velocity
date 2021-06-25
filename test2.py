@@ -9,7 +9,7 @@ line2, = plot.plot([])
 line3, = plot.plot([])
 group_speed, = plot.plot([], [], marker='o', ls="")
 phase_speed, = plot.plot([], [], marker='o', ls="")
-
+# constants
 A = 1
 w1 = 8
 w2 = 7
