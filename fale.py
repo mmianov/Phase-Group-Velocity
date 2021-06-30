@@ -2,14 +2,20 @@ import numpy
 import matplotlib.pyplot as plot
 import matplotlib.animation as animation
 
-case1 = [8,7,12,11]
-case2 = [9,7,12,11]
-case3 = [10,7,10,11] # group speed in opposite direction
-cases = [case1, case2, case3]
+# cases
+case1 = [9,7,12,11] # 1. group velocity > phase velocity
+case2 = [3,2,3,2] # 2. group velocity = phase velocity [w2*k1 = w1*k2]
+case3 = [2,5,5,2] # 3. group velocity = - phase velocity [w1*k1 = w2*k2]
+case4 = [2,2,2,5] # 4. group velocity =  0
+case5 = [3,2,4,2] # 5. group velocity < phase velocity
+case6 = [1,-1,6,2]
+cases = [case1, case2, case3, case4, case5, case6]
+#cases = {"Negative velc": case1, }
+
 n = int(input("Podaj case (1-{}): ".format(len(cases))))
 while n - 1 not in range(len(cases)):
     print("Proszę wybrać case z podanego przedziału.")
-    n = int(input("Podaj case (1-3): "))
+    n = int(input("Podaj case (1-{}): ".format(len(cases))))
 
 # constants
 GROUP_COLOR = '#0066ff'
@@ -20,7 +26,7 @@ w2 = cases[n-1][1]
 k1 = cases[n-1][2]
 k2 = cases[n-1][3]
 vg = (w1 - w2) / (k1 - k2)
-FPS = 120
+FPS = 60
 print("Group speed: ", vg)
 
 # graph lines and graphs
@@ -52,10 +58,12 @@ vp2 = w2 / k2
 vp = (w1 + w2) / (k1 + k2)
 print("Phase speed: ", vp)
 
+# speed display and axis title
 ax3.set_xlabel('time [s]',fontsize=11)
-
-plot.annotate('Group speed: {}'.format(vg), (0,0), (0, -35), xycoords='axes fraction', textcoords='offset points', va='top',fontsize=11, color= GROUP_COLOR)
+plot.annotate('Group speed: {}'.format(round(vg,3)), (0,0), (0, -35), xycoords='axes fraction', textcoords='offset points', va='top',fontsize=11, color= GROUP_COLOR)
 plot.annotate('Phase speed: {}'.format(round(vp,3)), (0,0), (120, -35), xycoords='axes fraction', textcoords='offset points', va='top',fontsize=11,color=PHASE_COLOR)
+
+# animation
 x = numpy.arange(0, 2 * numpy.pi, 0.01)
 def animate(t):
     y1 = A * numpy.cos((w1 * t) / FPS - k1 * x)
