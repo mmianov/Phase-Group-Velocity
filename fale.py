@@ -24,12 +24,17 @@ while True:
     print("--------------------------------------")
 
     # user input
-    n = int(input("Please choose case (1-{}): ".format(case_len)))
-    while n - 1 not in range(case_len):
-        if n == 0:
-            sys.exit(-1)
-        print("Please choose a case from a list above.")
-        n = int(input("Please choose case (1-{}): ".format(case_len)))
+    while True:
+        try:
+            n = int(input("Please choose case (1-{}): ".format(case_len)))
+            while n - 1 not in range(case_len):
+                if n == 0:
+                    sys.exit()
+                print("Please choose a case from a list above.")
+                n = int(input("Please choose case (1-{}): ".format(case_len)))
+            break
+        except Exception as e:
+            print("Invalid input")
 
     # constants
     GROUP_COLOR = '#0066ff'
